@@ -21,7 +21,7 @@ signs:
     - '--output-signature=${signature}'
     - '${artifact}'
   artifacts: checksum
-  # output: true
+  # output: true # needs goreleaser v1.2.0
 
 dockers:
 - image_templates:
@@ -40,10 +40,11 @@ docker_signs:
     env:
     - COSIGN_EXPERIMENTAL=1
     artifacts: images
+    # needs goreleaser v1.2.0
     # output: true
     # certificate: '{{ replace (replace .Env.artifact "/" "-") ":" "-" }}.pem'
     args:
     - 'sign'
     - '--oidc-issuer={{if index .Env "CI"}}https://token.actions.githubusercontent.com{{else}}https://oauth2.sigstore.dev/auth{{end}}'
-    # - '--output-certificate=${certificate}'
+    # - '--output-certificate=${certificate}' # needs goreleaser v1.2.0
     - '${artifact}'
