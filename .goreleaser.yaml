@@ -1,0 +1,49 @@
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+signs:
+- cmd: cosign
+  env:
+    - COSIGN_EXPERIMENTAL=1
+  certificate: '${artifact}.pem'
+  args:
+    - sign-blob
+    - '--oidc-issuer={{if index .Env "CI"}}https://token.actions.githubusercontent.com{{else}}https://oauth2.sigstore.dev/auth{{end}}'
+    - '--output-certificate=${certificate}'
+    - '--output-signature=${signature}'
+    - '${artifact}'
+  artifacts: checksum
+  # output: true
+
+dockers:
+- image_templates:
+  - 'ghcr.io/goreleaser/keyless-example:{{ .Tag }}'
+  dockerfile: Dockerfile
+  build_flag_templates:
+  - "--pull"
+  - "--label=org.opencontainers.image.created={{.Date}}"
+  - "--label=org.opencontainers.image.name={{.ProjectName}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+  - "--label=org.opencontainers.image.source={{.GitURL}}"
+
+docker_signs:
+  - cmd: cosign
+    env:
+    - COSIGN_EXPERIMENTAL=1
+    artifacts: images
+    # output: true
+    # certificate: '{{ replace (replace .Env.artifact "/" "-") ":" "-" }}.pem'
+    args:
+    - 'sign'
+    - '--oidc-issuer={{if index .Env "CI"}}https://token.actions.githubusercontent.com{{else}}https://oauth2.sigstore.dev/auth{{end}}'
+    # - '--output-certificate=${certificate}'
+    - '${artifact}'
