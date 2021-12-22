@@ -1,3 +1,3 @@
 FROM scratch
-COPY keyless /usr/local/bin/keyless
-ENTRYPOINT [ "/usr/local/bin/keyless" ]
+COPY supply-chain-example /usr/local/bin/supply-chain-example
+ENTRYPOINT [ "/usr/local/bin/supply-chain-example" ]
