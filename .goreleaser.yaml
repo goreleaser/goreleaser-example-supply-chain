@@ -1,18 +1,32 @@
+#
+# Example keyless signing with SBOMs goreleaser config.
+#
+
+# setups builds for linux and darwin on amd64 and arm64
 builds:
-  - env:
-      - CGO_ENABLED=0
-    goos:
-      - linux
-      - darwin
+- env:
+  - CGO_ENABLED=0
+  goos:
+  - linux
+  - darwin
+  goarch:
+  - amd64
+  - arm64
+
+# config the checksum filename
 checksum:
   name_template: 'checksums.txt'
-snapshot:
-  name_template: "{{ incpatch .Version }}-next"
 
+# creates SBOMs of all archives using syft
+sboms:
+  - artifacts: archive
+
+# signs the checksum file
+# all files (including the sboms) are included in the checksum, so we don't need to sign each one if we don't want to
 signs:
 - cmd: cosign
   env:
-    - COSIGN_EXPERIMENTAL=1
+  - COSIGN_EXPERIMENTAL=1
   certificate: '${artifact}.pem'
   args:
     - sign-blob
@@ -23,6 +37,7 @@ signs:
   artifacts: checksum
   output: true
 
+# create a docker image
 dockers:
 - image_templates:
   - 'ghcr.io/goreleaser/keyless-example:{{ .Tag }}'
@@ -35,6 +50,7 @@ dockers:
   - "--label=org.opencontainers.image.version={{.Version}}"
   - "--label=org.opencontainers.image.source={{.GitURL}}"
 
+# signs our docker image
 docker_signs:
   - cmd: cosign
     env:
