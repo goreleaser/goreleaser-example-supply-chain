@@ -34,7 +34,6 @@ signs:
   certificate: '${artifact}.pem'
   args:
     - sign-blob
-    - '--oidc-issuer={{if index .Env "CI"}}https://token.actions.githubusercontent.com{{else}}https://oauth2.sigstore.dev/auth{{end}}'
     - '--output-certificate=${certificate}'
     - '--output-signature=${signature}'
     - '${artifact}'
@@ -63,5 +62,4 @@ docker_signs:
     output: true
     args:
     - 'sign'
-    - '--oidc-issuer={{if index .Env "CI"}}https://token.actions.githubusercontent.com{{else}}https://oauth2.sigstore.dev/auth{{end}}'
     - '${artifact}'
