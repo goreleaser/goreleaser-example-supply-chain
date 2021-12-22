@@ -9,7 +9,7 @@ GoReleaser + Cosign keyless signing + Syft SBOM generation example.
 ```shell
 wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.0.0/checksums.txt
 wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.0.0/checksums.txt.sig
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.0.0/checksums.pem
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.0.0/checksums.txt.pem
 cosign verify-blob --cert checksums.txt.pem --signature checksums.txt.sig checksums.txt
 ```
 
