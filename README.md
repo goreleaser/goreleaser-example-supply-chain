@@ -34,8 +34,8 @@ COSIGN_EXPERIMENTAL=1 cosign verify-blob --signature checksums.txt.sig checksums
 You can then download any file you want from the release, and verify it with, for example:
 
 ```shell
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/supply-chain-example_1.0.1_linux_amd64.tar.gz.sbom
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/supply-chain-example_1.0.1_linux_amd64.tar.gz
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/supply-chain-example_1.1.0_linux_amd64.tar.gz.sbom
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/supply-chain-example_1.1.0_linux_amd64.tar.gz
 sha256sum --ignore-missing -c checksums.txt
 ```
 
