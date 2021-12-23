@@ -20,11 +20,11 @@ It will:
 ### Checksums
 
 ```shell
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/checksums.txt
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/checksums.txt.sig
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/checksums.txt
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/checksums.txt.sig
 
 # then, either:
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/checksums.txt.pem
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/checksums.txt.pem
 cosign verify-blob --cert checksums.txt.pem --signature checksums.txt.sig checksums.txt
 
 # or:
@@ -34,8 +34,8 @@ COSIGN_EXPERIMENTAL=1 cosign verify-blob --signature checksums.txt.sig checksums
 You can then download any file you want from the release, and verify it with, for example:
 
 ```shell
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/supply-chain-example_1.1.0_linux_amd64.tar.gz.sbom
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.1.0/supply-chain-example_1.1.0_linux_amd64.tar.gz
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/supply-chain-example_1.2.0_linux_amd64.tar.gz.sbom
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/supply-chain-example_1.2.0_linux_amd64.tar.gz
 sha256sum --ignore-missing -c checksums.txt
 ```
 
@@ -46,5 +46,5 @@ You can then inspect the `.sbom` file to see the entire dependency tree of the b
 ### Docker image
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify ghcr.io/goreleaser/supply-chain-example:v1.1.0
+COSIGN_EXPERIMENTAL=1 cosign verify ghcr.io/goreleaser/supply-chain-example:v1.2.0
 ```
