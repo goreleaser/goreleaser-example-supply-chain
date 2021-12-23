@@ -16,7 +16,7 @@ permissions:
    packages: write # needed for ghcr access
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
