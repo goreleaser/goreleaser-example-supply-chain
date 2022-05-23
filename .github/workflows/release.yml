@@ -38,7 +38,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: goreleaser/goreleaser-action@v2          # run goreleaser
+      - uses: goreleaser/goreleaser-action@v3          # run goreleaser
         with:
           version: latest
           args: release --rm-dist
