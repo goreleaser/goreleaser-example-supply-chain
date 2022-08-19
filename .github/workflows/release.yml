@@ -32,7 +32,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - uses: sigstore/cosign-installer@v2.5.1         # installs cosign
-      - uses: anchore/sbom-action/download-syft@v0.11.0 # installs syft
+      - uses: anchore/sbom-action/download-syft@v0.12.0 # installs syft
       - uses: docker/login-action@v2                   # login to ghcr
         with:
           registry: ghcr.io
