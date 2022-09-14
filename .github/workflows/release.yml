@@ -19,10 +19,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # this is important, otherwise it won't checkout the full tree (i.e. no previous tags)
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: 1.18
       - uses: actions/cache@v3
@@ -31,14 +31,14 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-      - uses: sigstore/cosign-installer@v2.1.0         # installs cosign
-      - uses: anchore/sbom-action/download-syft@v0.8.0 # installs syft
-      - uses: docker/login-action@v1                   # login to ghcr
+      - uses: sigstore/cosign-installer@v2.6.0         # installs cosign
+      - uses: anchore/sbom-action/download-syft@v0.12.0 # installs syft
+      - uses: docker/login-action@v2                   # login to ghcr
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: goreleaser/goreleaser-action@v2          # run goreleaser
+      - uses: goreleaser/goreleaser-action@v3          # run goreleaser
         with:
           version: latest
           args: release --rm-dist
