@@ -89,3 +89,5 @@ docker_signs:
     args:
     - 'sign'
     - '${artifact}'
+    - "--yes" # needed on cosign 2.0.0+
+
