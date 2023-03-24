@@ -61,6 +61,7 @@ signs:
     - '--output-certificate=${certificate}'
     - '--output-signature=${signature}'
     - '${artifact}'
+    - "--yes" # needed on cosign 2.0.0+
   artifacts: checksum
   output: true
 
@@ -89,3 +90,5 @@ docker_signs:
     args:
     - 'sign'
     - '${artifact}'
+    - "--yes" # needed on cosign 2.0.0+
+
