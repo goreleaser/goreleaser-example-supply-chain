@@ -20,22 +20,20 @@ It will:
 ### Checksums
 
 ```shell
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/checksums.txt
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/checksums.txt.sig
-
-# then, either:
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/checksums.txt.pem
-cosign verify-blob --cert checksums.txt.pem --signature checksums.txt.sig checksums.txt
-
-# or:
-COSIGN_EXPERIMENTAL=1 cosign verify-blob --signature checksums.txt.sig checksums.txt
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.3.1/checksums.txt
+cosign verify-blob \
+  --certificate-identity 'https://github.com/goreleaser/goreleaser-example-supply-chain/.github/workflows/release.yml@refs/tags/v1.3.1' \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+  --cert https://github.com/goreleaser/supply-chain-example/releases/download/v1.3.1/checksums.txt.pem \
+  --signature https://github.com/goreleaser/supply-chain-example/releases/download/v1.3.1/checksums.txt.sig \
+  ./checksums.txt
 ```
 
 You can then download any file you want from the release, and verify it with, for example:
 
 ```shell
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/supply-chain-example_1.2.0_linux_amd64.tar.gz.sbom
-wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.2.0/supply-chain-example_1.2.0_linux_amd64.tar.gz
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.3.1/supply-chain-example_1.3.1_linux_amd64.tar.gz.sbom
+wget https://github.com/goreleaser/supply-chain-example/releases/download/v1.3.1/supply-chain-example_1.3.1_linux_amd64.tar.gz
 sha256sum --ignore-missing -c checksums.txt
 ```
 
