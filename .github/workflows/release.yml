@@ -28,7 +28,7 @@ jobs:
           cache: true
       - uses: sigstore/cosign-installer@v3.1.2         # installs cosign
       - uses: anchore/sbom-action/download-syft@v0.14.3 # installs syft
-      - uses: docker/login-action@v2                   # login to ghcr
+      - uses: docker/login-action@v3                   # login to ghcr
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
